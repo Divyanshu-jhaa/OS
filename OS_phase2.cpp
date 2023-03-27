@@ -26,6 +26,15 @@ private:
         int TLL;
     };
     struct PCB pcb;
+    unordered_map<int, string> errors = {
+        {0, "No Error"},
+        {1, "Out of Data"},
+        {2, "Line Limit Exceeded"},
+        {3, "Time Limit Exceeded"},
+        {4, "Operation Code Error"},
+        {5, "Operand Error"},
+        {6, "Invalid Page Fault"}
+        };
 
 public:
     void init();
@@ -34,6 +43,7 @@ public:
     void MOS();
     int allocate();
     int AddressMap(int VA);
+    void terminate(int code);
     void print_memory();
 
     fstream infile;
@@ -52,6 +62,12 @@ void OS::print_memory()
         }
         cout << "\n";
     }
+}
+
+void OS::terminate(int Code){                    // print in file cause of termination in case of error
+    cout<<"\n"<< errors[Code]<<endl;
+    outfile<<"\nProgram Terminated abnormally"<<endl;
+    outfile<<errors[Code]<<"\n\n";
 }
 
 void OS::init()
@@ -221,7 +237,7 @@ void OS::MOS()
     }
     else if (SI == 3)
     {
-        outfile << "\nProgram terminated successfully"
+        outfile << "\n"
                 << "\n";
     }
 }
