@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <time.h>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -70,6 +71,7 @@ void OS::init()
 
 int OS::allocate()
 {
+    time(0);
     return (rand() % 30);
 }
 
@@ -79,7 +81,6 @@ int OS::AddressMap(int VA)
     string temp = "";
     if (M[pte][0] != '0')
     {
-        cout << "Page Fault" << endl;
         return -1;
     }
     else
@@ -147,11 +148,29 @@ void OS::Execute()
         }
         else if (IR[0] == 'C' && IR[1] == 'R')
         {
-            //
+            int flag = 0;
+            int ra = AddressMap(add);
+            if (ra = -1)
+            {
+                // terminate
+            }
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (R[i] != M[ra][i])
+                        flag = 1;
+                }
+                if (flag == 1)
+                    C = false;
+                else
+                    C = true;
+            }
         }
         else if (IR[0] == 'B' && IR[1] == 'T')
         {
-            //
+            if (C == true)
+                IC = add;
         }
         else if (IR[0] == 'G' && IR[1] == 'D')
         {
@@ -221,7 +240,7 @@ void OS::MOS()
     }
     else if (SI == 3)
     {
-        outfile << "\nProgram terminated successfully"
+        outfile << "\n"
                 << "\n";
     }
 }
