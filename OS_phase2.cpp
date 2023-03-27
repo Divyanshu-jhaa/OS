@@ -86,8 +86,8 @@ int OS::AddressMap(int VA)
     {
         for (int i = 0; i < 4; i++)
         {
-            if (M[pte][i] != ' ')
-                temp += M[pte][i];
+
+            temp += M[pte][i];
         }
         return ((stoi(temp) * 10) + (VA % 10));
     }
