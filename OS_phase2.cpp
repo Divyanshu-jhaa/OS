@@ -132,6 +132,7 @@ void OS::Execute()
                 R[i] = M[ra][i];
             }
             cout << "Contents of the register" << endl;
+
             for (int j = 0; j < 4; j++)
             {
                 cout << R[j] << endl;
@@ -150,6 +151,7 @@ void OS::Execute()
                 int frame = allocate();
                 int i = PTR;
                 while (M[i][0] != '#')
+
                 {
                     i++;
                 }
@@ -158,6 +160,7 @@ void OS::Execute()
                 M[i][1] = '0';
                 M[i][2] = temp + 48;
                 M[i][3] = frame % 10 + 48;
+
                 frame = frame * 10;
                 for (int i = 0; i < 4; i++)
                     M[frame][i] = R[i];
@@ -176,6 +179,7 @@ void OS::Execute()
                 for (int i = 0; i < 4; i++)
                 {
                     if (R[i] != M[ra][i])
+
                         flag = 1;
                 }
                 if (flag == 1)
@@ -195,6 +199,7 @@ void OS::Execute()
             MOS();
         }
         else if (IR[0] == 'P' && IR[1] == 'D')
+
         {
             SI = 2;
             MOS();
@@ -218,6 +223,7 @@ void OS::MOS()
         M[tcount][0] = '0';
         M[tcount][1] = '0';
         M[tcount][2] = (frame_no / 10) + '0';
+
         M[tcount][3] = (frame_no % 10) + '0';
 
         for (int i = 0; i <= 39; i++)
@@ -233,6 +239,7 @@ void OS::MOS()
             }
 
             if (k == 40 || buffer[k] == ' ' || buffer[k] == '\n')
+            
                 break;
         }
     }
